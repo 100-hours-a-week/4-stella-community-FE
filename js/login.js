@@ -123,7 +123,7 @@ const lottieAnimation = type => {
 };
 
 const init = async () => {
-    await authCheckReverse();
+    //await authCheckReverse();
     observeSignupData();
     prependChild(document.body, Header('커뮤니티', 0));
     eventSet();

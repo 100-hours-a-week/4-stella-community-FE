@@ -2,7 +2,7 @@ import { getServerUrl } from '../utils/function.js';
 import { requestJson } from '../utils/request.js';
 
 export const userLogin = async (email, password) => {
-    const result = await requestJson(`${getServerUrl()}/v1/auth/login`, {
+    const result = await requestJson(`${getServerUrl()}/users/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

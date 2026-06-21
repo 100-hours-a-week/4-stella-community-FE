@@ -167,13 +167,11 @@ const inputEventHandler = async (event, uid) => {
             helperElement.textContent = '*닉네임을 입력해주세요.';
         } else if (value.includes(' ')) {
             helperElement.textContent = '*뛰어쓰기를 없애주세요.';
+        } else if (value.length < 2) {                          // 추가
+            helperElement.textContent = '*닉네임은 2자 이상 입력해주세요.';
         } else if (value.length > 10) {
-            helperElement.textContent =
-                '*닉네임은 최대 10자까지 작성 가능합니다.';
-        } else if (!isValidNickname) {
-            helperElement.textContent =
-                '*닉네임에 특수 문자는 사용할 수 없습니다.';
-        } else {
+            helperElement.textContent = '*닉네임은 최대 10자까지 작성 가능합니다.';
+        }else {
             const { status } = await checkNickname(value);
 
             if (status === HTTP_OK) {
@@ -258,7 +256,7 @@ const uploadProfileImage = () => {
 };
 
 const init = async () => {
-    await authCheckReverse();
+    //await authCheckReverse();
     prependChild(document.body, Header('커뮤니티', 1));
     observeSignupData();
     addEventForInputElements();
