@@ -26,4 +26,5 @@ jobs:
             run: npm ci
             # 빌드
           - name: Build
-            run: npm run build
+            run: npm install
+          - run: npm run build
