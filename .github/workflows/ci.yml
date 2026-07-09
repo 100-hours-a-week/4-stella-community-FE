@@ -14,7 +14,7 @@ jobs:
         runs-on: ubuntu-latest
         steps: # 레포지토리에서 코드 가져오기
           - name: Checkout repository
-            uses: actions/checkout@v
+            uses: actions/checkout@v6
             # Node.js 설치 
           - name: Set up Node.js
             uses: actions/setup-node@v4
