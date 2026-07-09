@@ -8,21 +8,22 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# 코드 가져와서 세팅 및 빌드
 jobs:
-    build:
+    build: 
         runs-on: ubuntu-latest
-        steps:
+        steps: # 레포지토리에서 코드 가져오기
           - name: Checkout repository
             uses: actions/checkout@v6
-
+            # Node.js 설치 
           - name: Set up Node.js
             uses: actions/setup-node@v6
             with:
-              node-version: "22"
+              node-version: "23"
               cache: npm
-
+            # 의존성 설치
           - name: Install dependencies
             run: npm ci
-
-          - name: Build frontend
+            # 빌드
+          - name: Build
             run: npm run build
