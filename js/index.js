@@ -7,7 +7,7 @@ import { getPosts, searchPosts } from '../api/indexRequest.js';
 const DEFAULT_PROFILE_IMAGE = '../public/image/profile/default.jpg';
 const HTTP_NOT_AUTHORIZED = 401;
 const SCROLL_THRESHOLD = 0.9;
-const INITIAL_OFFSET = 5;
+const INITIAL_OFFSET = 1;
 const ITEMS_PER_LOAD = 5;
 const DEFAULT_SORT = 'recent';
 let currentKeyword = '';
@@ -38,7 +38,23 @@ const getBoardItem = async (offsetValue = 0, limitValue = 5) => {
     if (!result.ok) {
         throw new Error('Failed to load post list.');
     }
-    return result.data;
+    const slice = result.data;
+    return {
+        items: (slice.content || []).map(post => ({
+            id: post.postId,
+            createdAt: post.createdTime,
+            title: post.title,
+            thumbnailUrl: post.thumbnailUrl,
+            viewCount: 0,
+            author: {
+                profileImageUrl: post.profileImageUrl,
+                nickname: post.nickname,
+            },
+            commentCount: 0,
+            likeCount: 0,
+        })),
+        hasNext: slice.last === false,
+    };
 };
 
 const setBoardItem = boardData => {
@@ -50,6 +66,7 @@ const setBoardItem = boardData => {
                     data.id,
                     data.createdAt,
                     data.title,
+                    data.thumbnailUrl,
                     data.viewCount,
                     data.author ? data.author.profileImageUrl : null,
                     data.author ? data.author.nickname : null,
@@ -79,13 +96,15 @@ const loadBoardItems = async ({ reset = false } = {}) => {
             isEnd = false;
             resetBoardList();
         }
-        const items = await getBoardItem(offset, ITEMS_PER_LOAD);
+        const pageData = await getBoardItem(offset, ITEMS_PER_LOAD);
+        const items = pageData.items;
         if (!items || items.length === 0) {
             isEnd = true;
             return;
         }
         setBoardItem(items);
-        offset += ITEMS_PER_LOAD;
+        isEnd = !pageData.hasNext;
+        offset += 1;
     } catch (error) {
         console.error('Error fetching items:', error);
         isEnd = true;

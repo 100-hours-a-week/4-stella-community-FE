@@ -5,6 +5,7 @@ import {
     validEmail,
 } from '../utils/function.js';
 import { userLogin } from '../api/loginRequest.js';
+import { setAccessToken } from '../utils/request.js';
 
 const HTTP_OK = 200;
 const MAX_PASSWORD_LENGTH = 8;
@@ -22,7 +23,7 @@ const loginClick = async () => {
     const { id: email, password } = loginData;
     const helperTextElement = document.querySelector('.helperText');
 
-    const { ok, status, code } = await userLogin(email, password);
+    const { ok, status, code, data } = await userLogin(email, password);
     if (!ok) {
         updateHelperText(
             helperTextElement,
@@ -41,6 +42,7 @@ const loginClick = async () => {
         return;
     }
     updateHelperText(helperTextElement);
+    setAccessToken(data.token.accessToken);
 
     location.href = '/html/index.html';
 };
@@ -127,7 +129,6 @@ const init = async () => {
     observeSignupData();
     prependChild(document.body, Header('커뮤니티', 0));
     eventSet();
-    localStorage.clear();
 };
 
 init();

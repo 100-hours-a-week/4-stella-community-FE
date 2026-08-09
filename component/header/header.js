@@ -1,16 +1,20 @@
 import { getServerUrl } from '../../utils/function.js';
+import { clearAccessToken } from '../../utils/request.js';
 
 const headerDropdownMenu = () => {
     const wrap = document.createElement('div');
 
+    const friendManagementLink = document.createElement('a');
     const modifyInfoLink = document.createElement('a');
     const modifyPasswordLink = document.createElement('a');
     const logoutLink = document.createElement('a');
 
+    friendManagementLink.textContent = '친구 관리';
     modifyInfoLink.textContent = '회원정보수정';
     modifyPasswordLink.textContent = '비밀번호수정';
     logoutLink.textContent = '로그아웃';
 
+    friendManagementLink.href = '/html/friends.html';
     modifyInfoLink.href = '/html/modifyInfo.html';
     modifyPasswordLink.href = '/html/modifyPassword.html';
     logoutLink.addEventListener('click', async () => {
@@ -20,12 +24,14 @@ const headerDropdownMenu = () => {
                 credentials: 'include',
             });
         } finally {
+            clearAccessToken();
             location.href = '/html/login.html';
         }
     });
 
     wrap.classList.add('drop');
 
+    wrap.appendChild(friendManagementLink);
     wrap.appendChild(modifyInfoLink);
     wrap.appendChild(modifyPasswordLink);
     wrap.appendChild(logoutLink);
@@ -55,7 +61,7 @@ const Header = (
         } else {
             leftBtnElement.addEventListener(
                 'click',
-                () => (location.href = '/'),
+                () => (location.href = '/html/index.html'),
             );
         }
     }

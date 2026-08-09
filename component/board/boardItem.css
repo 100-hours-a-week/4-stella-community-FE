@@ -34,6 +34,22 @@
     padding: 0 20px;
 }
 
+.boardItem .postThumbnail {
+    width: calc(100% - 40px);
+    margin: 0 20px 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #eeeeef;
+}
+
+.boardItem .postThumbnail img {
+    display: block;
+    width: 100%;
+    max-height: 280px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
 .boardItem .info {
     display: flex;
     flex-direction: row;

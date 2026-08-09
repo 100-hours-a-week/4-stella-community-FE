@@ -29,14 +29,19 @@
     </div>
     <div class="inputBox">
         <label class="non-border">이미지</label>
-        <label id="imagePreviewText"></label>
+        <div class="imageControls">
+            <label class="imagePicker" for="image">JPEG/PNG 이미지 추가</label>
+            <span id="imageCount" class="imageCount">0 / 30</span>
+        </div>
         <input
-                class="non-border"
+                class="imageInput"
                 type="file"
                 id="image"
-                placeholder="파일을 선택해주세요."
-                accept="image/*"
+                accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                multiple
         />
+        <p class="imageHelp">기존 이미지는 삭제를 취소할 수 있고, 새 이미지도 개별 제거할 수 있습니다.</p>
+        <div id="imagePreviewText" class="imageGrid" aria-live="polite"></div>
     </div>
     <button id="submit">수정하기</button>
 </div>

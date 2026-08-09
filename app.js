@@ -14,7 +14,7 @@ const port = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-app.use('/v1', createProxyMiddleware({
+const apiProxyOptions = {
     target: 'http://localhost:8080',
     changeOrigin: true,
     on: {
@@ -22,9 +22,13 @@ app.use('/v1', createProxyMiddleware({
             console.error('Proxy error:', err);
         }
     }
-}));
+};
 
-app.use('/users', createProxyMiddleware({ target: 'http://localhost:8080' }));
+app.use('/v1', createProxyMiddleware(apiProxyOptions));
+app.use('/users', createProxyMiddleware(apiProxyOptions));
+app.use('/posts', createProxyMiddleware(apiProxyOptions));
+app.use('/api/friends', createProxyMiddleware(apiProxyOptions));
+app.use('/api/friend-requests', createProxyMiddleware(apiProxyOptions));
 
 app.use(express.static(__dirname));
 
@@ -39,7 +43,7 @@ app.get('/config.js', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.redirect('/html/index.html');
+    res.redirect('/html/login.html');
 });
 
 app.listen(port, () => {

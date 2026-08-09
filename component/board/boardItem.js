@@ -4,6 +4,7 @@ const BoardItem = (
     postId,
     date,
     title,
+    thumbnailUrl,
     viewCount,
     imgUrl,
     writer,
@@ -35,12 +36,18 @@ const BoardItem = (
 
     const DEFAULT_PROFILE_IMAGE = '../public/image/profile/default.jpg';
     const profileImageUrl = resolveImageUrl(imgUrl, DEFAULT_PROFILE_IMAGE);
+    const postThumbnailUrl = resolveImageUrl(thumbnailUrl);
     // const API_HOST = getServerUrl();
 
     return `
     <a href="/html/board.html?id=${postId}">
         <div class="boardItem">
             <h2 class="title">${title}</h2>
+            ${
+                postThumbnailUrl
+                    ? `<div class="postThumbnail"><img src="${postThumbnailUrl}" alt="" loading="lazy"></div>`
+                    : ''
+            }
             <div class="info">
                 <h3 class="views">좋아요 <b>${likeCount}</b></h3>
                 <h3 class="views">댓글 <b>${commentCount}</b></h3>

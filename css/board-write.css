@@ -81,10 +81,126 @@ h2 {
     padding: 0 16px !important;
 }
 
-.deleteFile {
+.imageControls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 16px;
+}
+
+.inputBox .imagePicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    padding: 10px 16px !important;
+    border: 1px solid #7f6aee !important;
+    border-radius: 8px;
+    color: #7f6aee;
+    background: #ffffff;
     cursor: pointer;
-    padding-left: 10px;
-    color: red;
+}
+
+.imageInput {
+    position: absolute;
+    width: 1px !important;
+    height: 1px;
+    padding: 0 !important;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0 !important;
+}
+
+.imageCount,
+.imageHelp,
+.imageStatus {
+    color: #777582;
+    font-size: 12px;
+}
+
+.imageHelp {
+    margin: 0;
+    padding: 0 16px;
+}
+
+.imageGrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    padding: 4px 16px;
+}
+
+.imageCard {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.imageCard.isDeleted {
+    opacity: 0.48;
+}
+
+.imageCard img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #f1f1f1;
+}
+
+.imageCardInfo {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px;
+}
+
+.imageFileName {
+    overflow: hidden;
+    color: #454854;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.imageCard .deleteFile,
+.imageCard .restoreImage {
+    width: auto;
+    height: 30px;
+    margin: 0 8px 8px;
+    border: 1px solid #f05a67;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #d83b49;
+    font-size: 12px;
+}
+
+.imageCard .restoreImage {
+    border-color: #7f6aee;
+    color: #7f6aee;
+}
+
+.emptyImages {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 24px 0;
+    border: 1px dashed #d7d5dc;
+    border-radius: 10px;
+    color: #777582;
+    text-align: center;
+}
+
+@media (max-width: 560px) {
+    .imageGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 .helperText {

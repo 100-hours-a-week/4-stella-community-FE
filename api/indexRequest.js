@@ -1,9 +1,10 @@
 import { getServerUrl } from '../utils/function.js';
 import { requestJson } from '../utils/request.js';
 
-export const getPosts = (lastPostId) => {
+export const getPosts = (page = 0, size = 5) => {
+    const query = new URLSearchParams({ page, size });
     const result = requestJson(
-        `${getServerUrl()}/posts?lastPostId=${lastPostId}`,
+        `${getServerUrl()}/posts?${query.toString()}`,
         {
             credentials: 'include',
         },
@@ -11,15 +12,14 @@ export const getPosts = (lastPostId) => {
     return result;
 };
 
-export const searchPosts = (keyword, offset = 0, limit = 5, sort = 'recent') => {
+export const searchPosts = (keyword, page = 0, size = 5, sort = 'recent') => {
     const query = new URLSearchParams({
         keyword,
-        offset,
-        limit,
-        sort,
+        page,
+        size,
     });
     const result = requestJson(
-        `${getServerUrl()}/v1/posts/search?${query.toString()}`,
+        `${getServerUrl()}/posts/search?${query.toString()}`,
         {
             credentials: 'include',
         },

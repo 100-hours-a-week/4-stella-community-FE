@@ -1,0 +1,159 @@
+@import url('./common/layout.css');
+@import url('../component/header/header.css');
+
+.friendPage {
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 40px 16px;
+}
+
+.friendPage > h1 {
+    width: 100%;
+    color: #454854;
+    font-size: 26px;
+}
+
+.friendSection {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #eeeeef;
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+.friendSection h2 {
+    color: #454854;
+    font-size: 20px;
+}
+
+.friendSection h2 span {
+    color: #7f6aee;
+}
+
+.sectionTitleRow,
+.friendSearchRow,
+.friendRow,
+.requestActions {
+    display: flex;
+    align-items: center;
+}
+
+.sectionTitleRow {
+    justify-content: space-between;
+}
+
+.friendSearchRow {
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.friendSearchRow input {
+    flex: 1;
+    min-width: 0;
+    height: 42px;
+    padding: 0 14px;
+    border: 1px solid #dcdce2;
+    border-radius: 10px;
+    outline: none;
+}
+
+.friendSearchRow input:focus {
+    border-color: #7f6aee;
+    box-shadow: 0 0 0 3px rgba(127, 106, 238, 0.14);
+}
+
+.friendSection button {
+    min-width: 70px;
+    height: 38px;
+    padding: 0 14px;
+    border: 1px solid #7f6aee;
+    border-radius: 9px;
+    background: #7f6aee;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.friendSection button:disabled {
+    border-color: #aca0eb;
+    background: #aca0eb;
+    cursor: default;
+}
+
+.friendSection .secondaryButton {
+    background: #ffffff;
+    color: #7f6aee;
+}
+
+.friendList {
+    display: flex;
+    flex-direction: column;
+    margin-top: 14px;
+}
+
+.friendRow {
+    min-height: 62px;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eeeeef;
+}
+
+.friendRow:last-child {
+    border-bottom: none;
+}
+
+.friendProfile {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.friendNickname,
+.requestSender {
+    min-width: 0;
+    flex: 1;
+}
+
+.friendNickname {
+    overflow: hidden;
+    color: #454854;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.requestSender {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.requestedAt {
+    color: #90929d;
+    font-size: 12px;
+}
+
+.requestActions {
+    gap: 8px;
+}
+
+.emptyMessage {
+    margin: 0;
+    padding: 24px 8px;
+    color: #777582;
+    text-align: center;
+}
+
+@media (max-width: 520px) {
+    .requestRow {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .requestActions {
+        width: 100%;
+    }
+
+    .requestActions button {
+        flex: 1;
+    }
+}

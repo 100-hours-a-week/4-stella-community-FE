@@ -15,7 +15,7 @@ export const createPost = boardData => {
 
 export const updatePost = (postId, boardData) => {
     const result = requestJson(`${getServerUrl()}/posts/${postId}`, {
-        method: 'PATCH',
+        method: 'PUT',
         body: JSON.stringify(boardData),
         headers: {
             'Content-Type': 'application/json',
@@ -26,13 +26,22 @@ export const updatePost = (postId, boardData) => {
     return result;
 };
 
-export const fileUpload = formData => {
-    const result = requestJson(getServerUrl() + '/posts/upload/attach-file', {
+export const fileUpload = (postId, formData) => {
+    const result = requestJson(`${getServerUrl()}/posts/${postId}/images`, {
         method: 'POST',
         body: formData,
     });
 
     return result;
+};
+
+export const deletePostImage = (postId, imageId) => {
+    return requestJson(
+        `${getServerUrl()}/posts/${postId}/images/${imageId}`,
+        {
+            method: 'DELETE',
+        },
+    );
 };
 
 export const getBoardItem = postId => {

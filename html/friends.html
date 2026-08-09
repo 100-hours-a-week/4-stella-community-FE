@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/config.js"></script>
+    <link rel="stylesheet" href="../css/friends.css" />
+    <title>친구 관리</title>
+</head>
+<body>
+<main class="wrap friendPage">
+    <h1>친구 관리</h1>
+
+    <section class="friendSection" aria-labelledby="friendListTitle">
+        <div class="sectionTitleRow">
+            <h2 id="friendListTitle">
+                친구 목록 <span id="friendCount">0</span>
+            </h2>
+            <button id="refreshFriends" class="secondaryButton" type="button">
+                새로고침
+            </button>
+        </div>
+        <div id="friendList" class="friendList" aria-live="polite"></div>
+    </section>
+
+    <section class="friendSection" aria-labelledby="friendSearchTitle">
+        <h2 id="friendSearchTitle">친구 찾기</h2>
+        <div class="friendSearchRow">
+            <input
+                id="friendSearchInput"
+                type="search"
+                placeholder="닉네임으로 검색"
+                aria-label="사용자 닉네임 검색"
+            />
+            <button id="friendSearchButton" type="button">검색</button>
+        </div>
+        <div id="friendSearchResults" class="friendList" aria-live="polite">
+            <p class="emptyMessage">닉네임을 입력해 사용자를 찾아보세요.</p>
+        </div>
+    </section>
+
+    <section class="friendSection" aria-labelledby="receivedRequestTitle">
+        <div class="sectionTitleRow">
+            <h2 id="receivedRequestTitle">
+                받은 친구 요청 <span id="receivedRequestCount">0</span>
+            </h2>
+            <button id="refreshReceivedRequests" class="secondaryButton" type="button">
+                새로고침
+            </button>
+        </div>
+        <div id="receivedRequestList" class="friendList" aria-live="polite"></div>
+    </section>
+</main>
+<div class="background"></div>
+<script src="../js/friends.js" type="module"></script>
+</body>
+</html>

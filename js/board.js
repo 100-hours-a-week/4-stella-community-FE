@@ -44,7 +44,20 @@ const getBoardDetail = async postId => {
     const { ok, data } = await getPost(postId);
     if (!ok)
         return new Error('게시글 정보를 가져오는데 실패하였습니다.');
-    return data;
+    return {
+        ...data,
+        id: data.postId,
+        writerId: data.userId,
+        createdAt: data.createdTime,
+        profileImage: data.profileImageUrl,
+        nickname: data.nickname,
+        fileUrls: (data.images || []).map(image => image.imageUrl),
+        fileUrl: data.images?.[0]?.imageUrl,
+        isLiked: data.isLiked ?? false,
+        likeCount: data.likeCount ?? 0,
+        viewCount: data.viewCount ?? 0,
+        commentCount: data.commentCount ?? 0,
+    };
 };
 
 const setBoardDetail = data => {
@@ -68,13 +81,14 @@ const setBoardDetail = data => {
 
     // 바디 정보
     const contentImgElement = document.querySelector('.contentImg');
-    const fileUrl = data.fileUrl || resolveImageUrl(data.filePath);
-    if (fileUrl) {
-        console.log(fileUrl);
+    const fileUrls = data.fileUrls?.length
+        ? data.fileUrls
+        : [data.fileUrl || resolveImageUrl(data.filePath)].filter(Boolean);
+    fileUrls.forEach(fileUrl => {
         const img = document.createElement('img');
-        img.src = fileUrl;
+        img.src = resolveImageUrl(fileUrl);
         contentImgElement.appendChild(img);
-    }
+    });
     const contentElement = document.querySelector('.content');
     contentElement.textContent = data.content;
 
@@ -145,7 +159,7 @@ const setBoardDetail = data => {
 };
 
 const setBoardModify = async (data, myInfo) => {
-    if (myInfo.idx === data.writerId) {
+    if (myInfo.userId === data.writerId) {
         const modifyElement = document.querySelector('.hidden');
         modifyElement.classList.remove('hidden');
 
@@ -158,7 +172,7 @@ const setBoardModify = async (data, myInfo) => {
                 async () => {
                     const { ok } = await deletePost(postId);
                     if (ok) {
-                        window.location.href = '/';
+                        window.location.href = '/html/index.html';
                     } else {
                         Dialog('삭제 실패', '게시글 삭제에 실패하였습니다.');
                     }
@@ -261,6 +275,8 @@ const init = async () => {
         const pageData = await getBoardDetail(pageId);
 
         if (parseInt(pageData.userId, 10) === parseInt(myInfo.userId, 10)) {
+            pageData.nickname = myInfo.nickname;
+            pageData.profileImage = myInfo.profileImageUrl;
             setBoardModify(pageData, myInfo);
         }
         setBoardDetail(pageData);

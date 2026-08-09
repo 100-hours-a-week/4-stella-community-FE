@@ -1,3 +1,5 @@
+import { requestWithAuthentication } from './request.js';
+
 export const getServerUrl = () => {
     const configUrl =
         typeof window !== 'undefined' &&
@@ -23,10 +25,13 @@ export const resolveImageUrl = (url, fallback = null) => {
 };
 
 export const serverSessionCheck = async () => {
-    const res = await fetch(`${getServerUrl()}/v1/auth/check`, {
-        method: 'GET',
-        credentials: 'include',
-    });
+    const res = await requestWithAuthentication(
+        `${getServerUrl()}/v1/auth/check`,
+        {
+            method: 'GET',
+            credentials: 'include',
+        },
+    );
     return res;
 };
 
